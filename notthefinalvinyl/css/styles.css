@@ -1,0 +1,441 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap');
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+body {
+    overflow: hidden;
+    font-family: 'Space Grotesk', sans-serif;
+    background: #000;
+    color: #fff;
+    letter-spacing: 0.02em;
+    
+    background: linear-gradient(
+        180deg, 
+        rgb(0, 0, 0) 0%,
+        rgb(15, 15, 15) 50%,
+        rgb(22, 22, 22) 100%
+    );
+    
+    min-height: 100vh;
+    margin: 0;
+}
+
+#splash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: splashSequence 4s forwards;
+}
+
+#splash img {
+    width: clamp(200px, 40%, 400px);
+    animation: logoSequence 4s forwards;
+}
+
+@keyframes splashSequence {
+    0% { 
+        opacity: 0;
+        transform: scale(1);
+    }
+    10% { 
+        opacity: 1;
+        transform: scale(1);
+    }
+    80% { 
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% { 
+        opacity: 0;
+        transform: scale(5);
+    }
+}
+
+@keyframes logoSequence {
+    0% { 
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    10% { 
+        opacity: 1;
+        transform: scale(1);
+    }
+    80% { 
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% { 
+        opacity: 0;
+        transform: scale(2);
+    }
+}
+
+/* Rest of your existing styles here */
+#canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#info {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: clamp(10px, 3vw, 20px);
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(10px);
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 100;
+}
+
+#info.active { 
+    transform: translateY(0); 
+}
+
+.album-info {
+    max-width: 800px;
+    margin: 0 auto;
+    padding-right: clamp(20px, 5vw, 40px);
+}
+
+.album-title { 
+    font-size: clamp(24px, 5vw, 32px);
+    margin-bottom: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.artist { 
+    font-size: clamp(16px, 4vw, 20px);
+    color: #888; 
+    margin-bottom: 15px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+}
+
+.album-details { 
+    font-size: clamp(13px, 3.5vw, 14px);
+    line-height: 1.6;
+    color: #bbb;
+}
+
+.instructions {
+    position: fixed;
+    top: 20px;
+    right: clamp(10px, 3vw, 20px);
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(5px);
+    padding: clamp(10px, 2vw, 15px) clamp(15px, 3vw, 20px);
+    border-radius: 8px;
+    opacity: 0;
+    transition: opacity 0.5s;
+    font-size: clamp(12px, 3vw, 14px);
+    line-height: 1.6;
+    z-index: 100;
+}
+
+.instructions.visible {
+    opacity: 1;
+}
+
+#embed-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(90vw, 600px);
+    background: #000000;
+    border-radius: 0px;
+    padding: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 100;
+}
+
+#embed-container.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.embed-content {
+    width: 100%;
+    height: 120px;
+    overflow: hidden;
+    background: #000000;
+}
+
+.embed-content iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: #000000;
+    display: block;
+}
+
+.default-info {
+    text-align: center;
+    padding: clamp(15px, 4vw, 20px);
+}
+
+.default-info h1 {
+    font-size: clamp(24px, 6vw, 32px);
+    font-weight: 700;
+    margin-bottom: 15px;
+    letter-spacing: 0.05em;
+}
+
+.default-info h3 {
+    font-size: clamp(16px, 4vw, 20px);
+    font-weight: 300;
+    color: #888;
+    letter-spacing: 0.1em;
+}
+
+/* Expanded Info Panel Styles */
+#info.expanded {
+    max-height: clamp(70vh, 75vh, 80vh);
+    overflow-y: auto;
+}
+
+.expanded-content {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 60px;
+}
+
+#info.expanded .expanded-content {
+    opacity: 1;
+    max-height: none;
+}
+
+.track-list {
+    margin: 20px 0;
+}
+
+.track-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.track-duration {
+    color: #888;
+    margin-left: 20px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 4px 8px;
+    margin: 0 8px 8px 0;
+    background: rgba(255,255,255,0.1);
+    border-radius: 4px;
+    font-size: clamp(11px, 3vw, 12px);
+}
+
+.description {
+    line-height: 1.6;
+    margin: 20px 0;
+    white-space: pre-line;
+    color: #bbb;
+    font-size: clamp(13px, 3.5vw, 14px);
+}
+
+.release-info {
+    margin: 20px 0;
+    color: #888;
+    line-height: 1.6;
+    font-size: clamp(13px, 3.5vw, 14px);
+}
+
+.buy-now-container {
+    margin: 10px 0;
+    text-align: right;
+}
+
+.buy-now-link {
+    display: inline-block;
+    padding: 8px 16px;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.buy-now-link {
+    display: inline-block;
+    padding: clamp(12px, 2vw, 15px) clamp(20px, 4vw, 30px);
+    background: rgba(255,255,255,0.15);
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+    touch-action: manipulation; /* Optimize for touch */
+    cursor: pointer;
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+.buy-now-link:hover,
+.buy-now-link:focus {
+    background: rgba(255,255,255,0.25);
+    transform: translateY(-1px);
+    outline: none;
+}
+
+/* Active state for touch devices */
+.buy-now-link:active {
+    transform: translateY(1px);
+    background: rgba(255,255,255,0.3);
+}
+
+#permanent-logo {
+    position: fixed;
+    top: clamp(10px, 2vw, 20px);
+    left: clamp(10px, 2vw, 20px);
+    z-index: 90;
+    width: clamp(100px, 20vw, 150px);
+}
+
+#permanent-logo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: transparent;
+}
+
+#gallery-loading {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(90vw, 400px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    z-index: 100;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5);
+    padding: clamp(15px, 3vw, 20px);
+    border-radius: 4px;
+}
+
+#gallery-loading.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+#gallery-loading h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(24px, 6vw, 32px);
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: clamp(15px, 4vw, 20px);
+    letter-spacing: 0.02em;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+.progress {
+    width: 0%;
+    height: 100%;
+    background: #fff;
+    transform-origin: left;
+    transition: width 0.3s ease;
+}
+
+/* Media Queries for specific mobile adjustments */
+@media (max-width: 768px) {
+    .buy-now-container {
+        text-align: center;
+    }
+
+    .buy-now-link {
+        min-width: 200px;
+        font-size: 16px;
+        padding: 15px 30px;
+    }
+
+    .track-item {
+        flex-direction: column;
+        padding: 12px 0;
+    }
+
+    .track-duration {
+        margin-left: 0;
+        margin-top: 5px;
+        color: #666;
+    }
+
+    #info.expanded {
+        max-height: 85vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .expanded-content {
+        padding-bottom: 40px;
+    }
+
+    .tag {
+        margin: 0 4px 6px 0;
+        padding: 3px 6px;
+    }
+    
+    .track-list {
+        margin: 15px 0;
+    }
+    
+    /* Increase touch targets for mobile */
+    .track-item {
+        padding: 15px 0;
+    }
+    
+    /* Better spacing for mobile buttons */
+    .buy-now-link {
+        display: block;
+        text-align: center;
+        margin: 10px auto;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) {
+    .buy-now-link:hover {
+        transform: none;
+    }
+    
+    /* Increase touch targets */
+    .tag {
+        padding: 6px 10px;
+        margin: 0 6px 8px 0;
+    }
+}

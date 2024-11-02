@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Not The Final Vinyl</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <div id="splash">
+        <img src="./assets/images/logo.png" alt="Not The Final Vinyl">
+    </div>
+    <div id="gallery-loading">
+        <h1>Loading...</h1>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    <div id="permanent-logo">
+        <img src="./assets/images/logo.png" alt="Not The Final Vinyl" />
+    </div>
+    <div class="instructions">
+        Click album to play
+    </div>
+
+    <div id="embed-container">
+        <div class="embed-content">
+        </div>
+    </div>
+
+    <div id="info">
+        <div class="default-info">
+            <h1>Not The Final Vinyl</h1>
+            <h3>An Independent Record Label Based in Wales</h3>
+        </div>
+        <div class="album-info" style="display: none;">
+            <div class="album-title"></div>
+            <div class="artist"></div>
+            <div class="album-details"></div>
+        </div>
+    </div>
+
+    <canvas id="canvas"></canvas>
+
+    <script type="module" crossorigin>
+        import AlbumGallery from './js/core/AlbumGallery.js';
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Loading links.js from:', './data/links.js');
+            const linksScript = document.createElement('script');
+            linksScript.src = './data/links.js';
+            linksScript.type = 'text/javascript';
+            linksScript.onload = () => {
+                console.log('links.js loaded successfully');
+                const gallery = new AlbumGallery();
+            };
+            linksScript.onerror = (error) => {
+                console.error('Error loading links.js:', error);
+            };
+            document.head.appendChild(linksScript);
+        });
+    </script>
+</body>
+</html>

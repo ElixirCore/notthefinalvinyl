@@ -1,0 +1,28 @@
+project-root/
+├── index.html
+├── css/
+│   └── styles.css
+├── js/
+│   ├── core/
+│   │   ├── AlbumGallery.js
+│   │   └── SceneManager.js
+│   ├── components/
+│   │   ├── Album.js
+│   │   └── VinylManager.js
+│   ├── handlers/
+│   │   ├── EventHandler.js
+│   │   └── NavigationHandler.js
+│   ├── ui/
+│   │   └── InfoDisplay.js
+│   └── utils/
+│       ├── Loader.js
+│       └── Animator.js
+├── data/
+│   ├── releases.json
+│   └── links.js
+└── assets/
+    ├── images/
+    │   ├── logo.png
+    │   └── vinyl.png
+    └── artwork/
+        └── [album_artworks].jpg
